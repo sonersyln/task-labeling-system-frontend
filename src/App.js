@@ -1,25 +1,33 @@
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Routes, Route, NavLink } from "react-router-dom";
 import Home from "./pages/Home";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import NotFound from "./pages/NotFound";
-
+import TaskDetails from "./pages/TaskDetails";
+import TaskList from "./components/TaskList";
+import Navbar from "./components/Navbar/Navbar";
+import "./App.css";
 const App = () => (
-  <Router>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-      </ul>
-    </nav>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </Router>
+  <div className="container mt-3 app">
+    <div className="container m-2 p-2">
+      <div className="row text-center">
+        <div className="col-12">
+          <h2>Anasayfa</h2>
+        </div>
+      </div>
+      <div className="row">
+        <Navbar />
+        <div className="col-8 p-2">
+          Tasks mapler buraya
+          <div className="card p-2 text-center">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/labels/:id" element={<TaskDetails />} />
+              <Route path="/tasks" element={<TaskList />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 export default App;
