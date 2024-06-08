@@ -1,43 +1,56 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { loginUser } from "../../services/api";
 import "./Login.css";
 
-function Login() {
+const Login = ({ onToggle }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [isLogin, setIsLogin] = useState(true);
-
-  const toggleLogin = () => {
-      setIsLogin(true);
-  };
-
-  const toggleRegister = () => {
-      setIsLogin(false);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser({ username, password });
+      // Login successful, handle redirection or state update
+    } catch (error) {
+      console.error("Login failed", error);
+    }
   };
 
   return (
-   <>
-    <div className="login-main-container">
-    <div className="login-container">
+    <div className="auth-container">
       <h2>Sign In</h2>
-      <form className="login-form">
-        <input type="text" placeholder="Email or username" required />
-        <input type="password" placeholder="Password" required />
-        <div className="remember-me">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
+      <form onSubmit={handleLogin}>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </div>
-        <div className="forgot-password">
-        <a href="/#" >Forgot password?</a>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
-       
-        <button type="submit">Sign In</button>
+        <div className="form-group">
+          <input type="checkbox" /> Remember me
+        </div>
+        <button type="submit" className="btn btn-primary">Sign In</button>
       </form>
-      <Link to="/register" className="register-link">Not a member? Register</Link>
+      <p>
+        Forgot password?
+      </p>
+      <p>
+        Not a member? <a href="#" onClick={onToggle}>Register</a>
+      </p>
     </div>
-    </div>
-  
-    </>
   );
-}
+};
 
 export default Login;
