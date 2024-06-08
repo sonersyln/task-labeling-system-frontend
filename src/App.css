@@ -11,12 +11,19 @@ body {
 }
 a{
   text-decoration: none;
+  
+}
+a,p,h1,h2,h3,h4{
+  color: #444;
 }
 a:hover{
   text-decoration: none;
 }
 li{
   list-style: none;
+}
+.form-control{
+  border:none;
 }
 .card {
   background: #fefefe;
@@ -106,7 +113,7 @@ li{
 }
 .baseContainer .rows .label-container-card{
     max-height: 650px;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 120px;
     min-height: 650px;
 }
@@ -144,9 +151,13 @@ align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  
 }
 .labelContainer .card p {
   display: none;
+  word-break: break-word;
+  white-space: nowrap;
+
 }
 .labelContainer .card:nth-child(1) {
   background: #1b57fc;
@@ -162,6 +173,8 @@ align-items: center;
 }
 .labelContainer .card .hoverText {
   display: none;
+  cursor: pointer !important;
+
 }
 
 .labelContainer .card:hover .hoverText {

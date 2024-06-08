@@ -9,28 +9,6 @@ const Home = () => {
   return (
     <div>
 
-<div className="container-fluid m-2 p-2 baseContainer">
-      <div className="rows">
-        <Sidebar />
-        
-        <div className="col-8  taskContainer">
-          <div className="row titleContainer">
-            <div className="col-8">
-              <h3>Görevler</h3>
-            </div>
-            <div className="col-4">
-              <TaskForm />
-            </div>
-          </div>
-          <div className="card p-2 text-center cardContainer">
-            
-            <p>pageable eklenecek</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
 
 
     </div>

@@ -272,7 +272,8 @@
     }
     .addBg {
       padding: 0.5rem 7rem;
-      background: #ddd9d9;
+      background: #fefefe;
+      border-bottom: 2px dashed lightgray;
       margin-top:-0.5rem;
     }
   }

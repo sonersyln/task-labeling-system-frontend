@@ -10,7 +10,7 @@ export const updateLabel = (label) => axios.put(`${API_BASE_URL}/labels`, label)
 export const deleteLabel = (id) => axios.delete(`${API_BASE_URL}/labels/${id}`);
 export const getAllLabelsByTaskId = (id) => axios.get(`${API_BASE_URL}/labels/getAllLabelsByTaskId/${id}`);
 
-export const getAllTasksByLabelId = (labelId) => axios.get(`${API_BASE_URL}/labels/${labelId}`);
+export const getAllTasksByLabelId = (labelId) => axios.get(`${API_BASE_URL}/tasks/labels/${labelId}`);
 export const getTasks = () => axios.get(`${API_BASE_URL}/tasks`);
 export const getTaskById = (id) => axios.get(`${API_BASE_URL}/tasks/${id}`);
 export const addTask = (task) => axios.post(`${API_BASE_URL}/tasks`, task);
