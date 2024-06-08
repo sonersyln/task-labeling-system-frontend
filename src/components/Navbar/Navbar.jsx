@@ -1,86 +1,92 @@
-import React, { useEffect, useState } from "react";
-import "./Navbar.css";
-import { NavLink } from "react-router-dom";
-import { deleteLabel, getLabels, updateLabel } from "../../services/api";
-import LabelForm from "../LabelForm";
-import { IoTrashOutline } from "react-icons/io5";
-import { EditText } from "react-edit-text";
-import "react-edit-text/dist/index.css";
-import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  IoIosCloseCircle,
+  IoIosMenu,
+  IoMdCart,
+  IoIosLogIn,
+} from "react-icons/io";
+import { MdLanguage } from "react-icons/md";
+import { NavDropdown } from "react-bootstrap";
+import "./navbar.css";
 
-const Navbar = () => {
-  const [Labels, setLabels] = useState([]);
-
-  useEffect(() => {
-    const fetchLabels = async () => {
-      try {
-        const getData = await getLabels();
-        setLabels(getData.data.data);
-        console.log(getData.data.data);
-      } catch (error) {
-        console.error("Error fetching labels:", error);
-      }
-    };
-
-    fetchLabels();
-  }, []);
-
-  const labelDelete = async (id) => {
-    try {
-      await deleteLabel(id);
-      setLabels(Labels.filter((label) => label.id !== id));
-    } catch (error) {
-      console.error("Error deleting label:", error);
+const NewNavbar = () => {
+  const [navbar, setNavbar] = useState("navbar");
+  const [header, setHeader] = useState("header addBg");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // This should be set to true when user logs in
+  const addBg = () => {
+    if (window.scrollY >= 0) {
+      setHeader("header addBg");
     }
   };
-
-  const handleTextChange = async (label, newValue) => {
-    const newLabelValue = newValue.value;
-    if (label.name !== newLabelValue) {
-      const updatedLabel = { ...label, name: newLabelValue };
-      
-      await updateLabelData(updatedLabel);
-    }
+  const showNavbar = () => {
+    setNavbar("navbar showNavbar");
   };
-  
-  const updateLabelData = async (updatedLabel) => {
-    try {
-      await updateLabel(updatedLabel);
-    } catch (error) {
-      console.error("Error updating label:", error);
-    }
+
+  const removeNavbar = () => {
+    setNavbar("navbar");
   };
-  
-
-
+  const logout = () => {
+    setIsLoggedIn(false); // Set isLoggedIn to false when user logs out
+    alert("exitSuccessful");
+  };
 
   return (
-    <div className="col-4 p-2">
-      <LabelForm />
-      <div className="card p-2 text-center">
-        {Labels.map((label) => (
-          <NavLink
-            to={"/labels/" + label.id}
-            className={"label-menu-link"}
-            key={label.id}
-          >
-            <EditText
-              defaultValue={label.name}
-              className="card-title"
-              showEditButton
-              onSave={(newValue) => handleTextChange(label, newValue)}
-            />
-            <div
-              className="card-icon text-danger"
-              onClick={() => labelDelete(label.id)}
-            >
-              <IoTrashOutline />
-            </div>
-          </NavLink>
-        ))}
+    <>
+      <div className={header}>
+        <div className="logoDiv">
+          <Link to="/" className="link">
+            Brand
+          </Link>
+        </div>
+        <div className={navbar}>
+          <ul className="menu">
+            <li onClick={removeNavbar} className="listItem"></li>
+          </ul>
+
+          <IoIosCloseCircle className="icon closeIcon" onClick={removeNavbar} />
+        </div>
+
+        <div className="signUp flex">
+          {isLoggedIn ? (
+            <>
+              <NavDropdown
+                className="textAction text"
+                title="{}"
+                id="basic-nav-dropdown"
+              >
+                <Link
+                  className=" text textAction btn"
+                  to="/profile/account-settings"
+                >
+                  <IoIosLogIn />
+                </Link>
+
+                <Link
+                  className="  btn text textAction"
+                  to="/profile/your-reservations"
+                ></Link>
+                <NavDropdown.Item onClick={logout} className="lang-item" eventKey="en">
+                  Çıkış Yap
+                </NavDropdown.Item>
+              </NavDropdown>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="link">
+                Anasayfa
+              </Link>
+              <Link className="text btn" to={"/sign-in"}>
+                Giriş Yap
+              </Link>
+            </>
+          )}
+
+          <IoIosMenu className="icon toggleNavbarIcon" onClick={showNavbar} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Navbar;
+export default NewNavbar;

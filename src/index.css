@@ -10,4 +10,17 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-white);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-pure-white);
+  border-radius: 2px;
+  border: 0px solid var(--secondary-color-dark);
+  box-shadow: -3px 7px 16px -4px rgba(140, 131, 114, 0.83);
 }

@@ -23,7 +23,7 @@ const LabelForm = ({ onLabelAdded }) => {
           value={labelName}
           onChange={(e) => setLabelName(e.target.value)}
           required
-          placeholder='Etiket adı giriniz...'
+          placeholder='Etiket eklemek için Entera basınız...'
         />
       </div>
     </form>

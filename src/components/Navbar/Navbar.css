@@ -1,0 +1,283 @@
+
+
+.langDropDownA a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem;
+    color: var(--textColor);
+    font-weight: 500;
+    -moz-column-gap: 0.25rem;
+         column-gap: 0.25rem;
+  }
+  
+  .header {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    /*box-shadow: 0 2px 5px rgb(119 113 113);*/
+    z-index: 1000;
+  }
+  .header .signUp {
+    display: flex;
+    align-items: center;
+  }
+  .header .signUp svg {
+    color: var(--retro-secondary-color);
+  }
+  .header .signUp svg:hover {
+    color: var(--retro-secondary-color);
+  }
+  .header .signUp .languageDropdown {
+    color: var(--retro-secondary-color);
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    width: 60px;
+    border-radius: 0.15rem;
+    padding: 0.5rem 3rem;
+  }
+  .header .signUp .languageDropdown:hover {
+    background: var(--secondaryColor);
+    color: var(--primary-color-light);
+    transition: 0.3s ease;
+  }
+  .header .signUp .languageDropdown svg {
+    width: 24px;
+    height: auto;
+  }
+  .header .signUp .languageDropdown .dropdown-menu {
+    width: 50px !important;
+    /*transform: translate(88px, -5px) !important;*/
+    padding: 0 0;
+    /*margin: 4.25rem -5.5rem;*/
+    width: 10px;
+  }
+  .header .signUp .languageDropdown .dropdown-menu a {
+    background-color: var(--primary-color-light);
+    color: var(--text-color-dark);
+  }
+  .header .signUp .languageDropdown .dropdown-menu a:hover {
+    background-color: var(--pureWhiteColor);
+    color: var(--primaryColor);
+  }
+  
+  .logoDiv .logo {
+    width: 25px;
+  }
+  
+  .dropdown-menu {
+    background: var(--greyColor);
+    border: none;
+    padding: 1rem 2rem;
+    margin: 3rem -1.5rem;
+    width: 190px;
+  }
+  .dropdown-menu .text {
+    margin: 0.5rem 0.25rem;
+    width: 190px;
+  }
+  .dropdown-menu .text .icon {
+    margin-right: 0.5rem;
+  }
+  
+  @media screen and (max-width: 769px) {
+    .navbar {
+      position: absolute;
+      background: var(--secondaryColor);
+      width: 80%;
+      top: -100rem;
+      right: 50%;
+      left: 50%;
+      transform: translate(-50%);
+      border-radius: 10px;
+      text-align: center;
+      padding: 2rem;
+      transition: 0.3s ease;
+      z-index: 2000;
+    }
+    .closeIcon {
+      position: absolute;
+      bottom: -15px;
+      right: 50%;
+      left: 50%;
+      transform: translate(-50%);
+      background: var(--secondaryColor);
+      color: var(--primaryColor);
+      padding: 3px;
+      border-radius: 50%;
+      font-size: 35px;
+    }
+    .closeIcon:hover {
+      color: red;
+    }
+    .menu {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .menu .listItem {
+      padding: 0.5rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .menu .listItem a {
+      color: var(--greyColor);
+      text-align: center;
+    }
+    .menu .listItem a:hover {
+      color: var(--whiteColor);
+    }
+    .menu .listItem:hover {
+      background: var(--primaryColor);
+      color: var(--whiteColor);
+      transition: 0.3s ease;
+    }
+  }
+  .signUp {
+    gap: 0.5rem;
+  }
+  .signUp .textAction {
+    background: transparent;
+    color: var(--primaryColor);
+    cursor: pointer;
+    width: 120px;
+    text-align: left;
+  }
+  .signUp .textAction:hover {
+    background: var(--secondaryColor);
+    color: var(--whiteColor);
+  }
+  .signUp .textAction svg {
+    width: 24px;
+    height: auto;
+  }
+  .signUp .text {
+    padding: 3px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .signUp .text:hover {
+    background: var(--secondaryColor);
+    color: var(--blackColor);
+  }
+  .signUp .dropdown {
+    width: 60px;
+    padding: 6px 4px;
+    text-align: center;
+  }
+  .signUp .text-login {
+    padding: 3px 10px;
+    background: red;
+    border-radius: 3px;
+    color: var(--primaryColor);
+    cursor: pointer;
+  }
+  .signUp .text-login:hover {
+    color: var(--secondaryColor);
+  }
+  .signUp .toggleNavbarIcon {
+    background: none;
+    color: var(--primaryColor);
+    font-weight: 600;
+  }
+  
+  .showNavbar {
+    top: 0;
+    transition: 0.5s ease;
+    width: 250px;
+  }
+  
+  .addBg {
+    justify-content: space-around;
+    background: var(--retro-light-color);
+    opacity: 95%;
+  }
+  
+  @media screen and (max-width: 510px) {
+    .header .logoDiv img {
+      width: 80px;
+    }
+  }
+  @media screen and (min-width: 520px) {
+    .header .logoDiv img {
+      width: 75px;
+    }
+    .header .signUp .languageBtnContainer {
+      padding: 0;
+    }
+    .header .signUp .text {
+      padding: 6px;
+      color: var(--primaryColor);
+    }
+    .header .signUp .text:hover {
+      color: var(--pureWhiteColor);
+    }
+    .header .signUp .toggleNavbarIcon {
+      font-size: 30px;
+    }
+    .addBg {
+      justify-content: space-between;
+    }
+  }
+  @media screen and (min-width: 770px) {
+    .header .navbar .languageBtnContainer {
+      padding: 0.25rem;
+    }
+    .header .navbar .closeIcon {
+      display: none;
+    }
+    .header .navbar .menu {
+      display: flex;
+      flex-direction: row;
+    }
+    .header .navbar .menu .listItem {
+      padding: 0.3rem 1rem;
+      border-radius: 3px;
+    }
+    .header .navbar .menu .listItem a {
+      color: var(--primaryColor);
+    }
+    .header .navbar .menu .listItem:hover {
+      background: var(--primaryColor);
+      color: var(--whiteColor);
+      transition: 0.3s ease;
+    }
+    .header .navbar .menu .listItem:hover a {
+      color: var(--whiteColor);
+    }
+    .header .signUp .text {
+      padding: 6px 10px;
+    }
+    .header .signUp .toggleNavbarIcon {
+      display: none;
+    }
+    .navbarProfileImg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  @media screen and (min-width: 1064px) {
+    .header {
+        margin-top:-0.5rem;
+      padding: 1rem 7rem;
+    }
+    .header .logoDiv img {
+      width: 86px;
+    }
+    .addBg {
+      padding: 0.5rem 7rem;
+      background: #ddd9d9;
+      margin-top:-0.5rem;
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    .header .navbar .menu .listItem {
+      margin: 0 1.8rem;
+    }
+  }/*# sourceMappingURL=navbar.css.map */
