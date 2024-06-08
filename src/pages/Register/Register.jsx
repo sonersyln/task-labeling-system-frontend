@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { registerUser } from "../../services/api";
+import { useNavigate } from 'react-router-dom';
 import "./Register.css";
 
-const Register = ({ onToggle }) => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       await registerUser({ email, username, password });
       // Registration successful, handle redirection or state update
+      navigate('/');
     } catch (error) {
       console.error("Registration failed", error);
     }
@@ -51,7 +54,7 @@ const Register = ({ onToggle }) => {
         <button type="submit" className="btn btn-primary">Register</button>
       </form>
       <p>
-        Already a member? <a href="#" onClick={onToggle}>Sign In</a>
+        Already a member? <a href="/sign-in">Sign In</a>
       </p>
     </div>
   );

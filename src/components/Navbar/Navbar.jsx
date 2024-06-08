@@ -1,34 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  IoIosCloseCircle,
-  IoIosMenu,
-  IoMdCart,
-  IoIosLogIn,
-} from "react-icons/io";
-import { MdLanguage } from "react-icons/md";
+import { IoIosCloseCircle, IoIosMenu, IoIosLogIn } from "react-icons/io";
 import { NavDropdown } from "react-bootstrap";
 import "./navbar.css";
+import { useAuth } from '../../pages/Auth/AuthContext';
 
 const NewNavbar = () => {
   const [navbar, setNavbar] = useState("navbar");
   const [header, setHeader] = useState("header addBg");
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // This should be set to true when user logs in
-  const addBg = () => {
-    if (window.scrollY >= 0) {
-      setHeader("header addBg");
-    }
-  };
+  const { user, logout } = useAuth(); // Kullanıcı bilgilerini al
+
+  useEffect(() => {
+    const addBg = () => {
+      if (window.scrollY >= 0) {
+        setHeader("header addBg");
+      }
+    };
+    window.addEventListener("scroll", addBg);
+    return () => {
+      window.removeEventListener("scroll", addBg);
+    };
+  }, []);
+
   const showNavbar = () => {
     setNavbar("navbar showNavbar");
   };
 
   const removeNavbar = () => {
     setNavbar("navbar");
-  };
-  const logout = () => {
-    setIsLoggedIn(false); // Set isLoggedIn to false when user logs out
-    alert("exitSuccessful");
   };
 
   return (
@@ -43,45 +42,27 @@ const NewNavbar = () => {
           <ul className="menu">
             <li onClick={removeNavbar} className="listItem"></li>
           </ul>
-
           <IoIosCloseCircle className="icon closeIcon" onClick={removeNavbar} />
         </div>
 
         <div className="signUp flex">
-          {isLoggedIn ? (
+          <Link to="/" className="link">
+            Anasayfa
+          </Link>
+          {user ? (
             <>
-              <NavDropdown
-                className="textAction text"
-                title="{}"
-                id="basic-nav-dropdown"
-              >
-                <Link
-                  className=" text textAction btn"
-                  to="/profile/account-settings"
-                >
-                  <IoIosLogIn />
-                </Link>
-
-                <Link
-                  className="  btn text textAction"
-                  to="/profile/your-reservations"
-                ></Link>
-                <NavDropdown.Item onClick={logout} className="lang-item" eventKey="en">
+              <NavDropdown className="textAction text" title="Profil" id="basic-nav-dropdown">
+                
+                <NavDropdown.Item onClick={logout} className="lang-item">
                   Çıkış Yap
                 </NavDropdown.Item>
               </NavDropdown>
             </>
           ) : (
-            <>
-              <Link to="/" className="link">
-                Anasayfa
-              </Link>
-              <Link className="text btn" to={"/sign-in"}>
-                Giriş Yap
-              </Link>
-            </>
+            <Link className="text btn" to="/sign-in">
+              Giriş Yap
+            </Link>
           )}
-
           <IoIosMenu className="icon toggleNavbarIcon" onClick={showNavbar} />
         </div>
       </div>
