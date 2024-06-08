@@ -23,6 +23,7 @@ const Login = () => {
     try {
       const userData = await loginUser(formData);
       login(userData);
+      console.log(userData);
       navigate('/');
     } catch (error) {
       setError('Login failed. Please check your username and password.');

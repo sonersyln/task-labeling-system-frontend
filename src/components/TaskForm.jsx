@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
 import { addTask } from '../services/api';
+import { useAuth } from './../pages/Auth/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 const TaskForm = ({ onTaskAdded }) => {
   const [taskName, setTaskName] = useState('');
+  const { user } = useAuth();
+  const location = useLocation();
+  const labelId = location.pathname.split('/').pop(); // URL'deki son parametreyi al
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await addTask({ name: taskName });
+    const userFromStorage = window.localStorage.getItem('user');
+    const parsedUser = JSON.parse(userFromStorage);
+    const username = parsedUser ? parsedUser.data : '';
+    
+    if (!labelId) {
+      console.error('Label ID is null');
+      return;
+    }
+  
+    console.log(`Task Name: ${taskName}, Username: ${username}, Label ID: ${labelId}`);
+    await addTask({ name: taskName, username, labelIds: [labelId] }); // labelId'yi bir diziye çevir
     setTaskName('');
     if (onTaskAdded) onTaskAdded();
     window.location.reload();
