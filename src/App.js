@@ -10,6 +10,9 @@ import TaskForm from "./components/TaskForm";
 import Login from "./pages/Login/Login";
 import { AuthProvider } from "./pages/Auth/AuthContext";
 import Register from "./pages/Register/Register";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+
 
 function App() {
   const location = useLocation();
@@ -53,6 +56,7 @@ function App() {
           </div>
         </>
       )}
+      <ToastContainer />
     </AuthProvider>
   );
 }

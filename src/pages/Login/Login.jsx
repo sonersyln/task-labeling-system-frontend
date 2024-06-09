@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { loginUser } from "../../services/api";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../pages/Auth/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,14 +20,19 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
     try {
       const userData = await loginUser(formData);
       login(userData);
-      console.log(userData);
+      toast.success('Giriş başarılı!');
       navigate('/');
     } catch (error) {
-      setError('Login failed. Please check your username and password.');
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || 'Giriş başarısız oldu. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.';
+        console.log(errorMessage);
+        toast.error(errorMessage);
+      } else {
+        toast.error('Giriş başarısız oldu. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.');
+      }
     } finally {
       setLoading(false);
     }
@@ -38,10 +44,10 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <h2>Sign In</h2>
+      <h2>Giriş Yap</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Kullanıcı Adı</label>
           <input
             type="text"
             name="username"
@@ -51,7 +57,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <label>Password</label>
+          <label>Şifre</label>
           <input
             type="password"
             name="password"
@@ -60,19 +66,16 @@ const Login = () => {
             required
           />
         </div>
-        <div className="form-group">
-          <input type="checkbox" /> Remember me
-        </div>
+        
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Signing In...' : 'Sign In'}
+          {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
         </button>
       </form>
-      {error && <p className="error-message">{error}</p>}
       <p>
-        Forgot password?
+        Hoş geldiniz! Lütfen giriş yapın.
       </p>
       <p>
-      Not a member? <a href="#" onClick={handleRegisterClick}>Register</a>
+      Üye değil misin? <a href="#" onClick={handleRegisterClick}>Kayıt olmak için tıkla!</a>
       </p>
     </div>
   );
