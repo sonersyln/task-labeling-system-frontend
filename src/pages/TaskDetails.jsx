@@ -58,10 +58,8 @@ const TaskDetails = () => {
     } catch (error) {
       console.error("Görev silinirken hata oluştu:", error);
       if (error.response && error.response.data) {
-        toast.error(error.response.data.message || "Görev silinirken hata oluştu");
-      } else {
-        toast.error("Görev silinirken hata oluştu");
-      }
+        toast.error(error.response.data.message );
+      } 
     }
   };
 

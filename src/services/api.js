@@ -1,35 +1,76 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
-let basicAuth = null;
 
-export const setBasicAuth = (username, password) => {
-  basicAuth = 'Basic ' + btoa(username + ':' + password);
-  axios.defaults.headers.common['Authorization'] = basicAuth;
+const instance = axios.create({
+  baseURL: `${API_BASE_URL}`
+});
+
+// Request interceptor
+instance.interceptors.request.use(
+  config => {
+    // Check if user exists in localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      console.error('User not found in localStorage.');
+      toast.error('Lütfen giriş yapınız.');
+      return Promise.reject('User not found in localStorage');
+    }
+
+    // Check if user has authorities field
+    if (!user.data.authorities) {
+      console.error('User does not have authorities field.');
+      toast.error('Lütfen giriş yapınız.');
+      return Promise.reject('User does not have authorities field');
+    }
+
+    // Check if user has necessary roles
+    if (user.data.authorities.includes('ROLE_ADMIN') || user.data.authorities.includes('ROLE_USER')) {
+      return config;
+    } else {
+      console.error('User does not have necessary permissions.');
+      toast.error('Lütfen giriş yapınız.');
+      return Promise.reject('User does not have necessary permissions');
+    }
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+export const getLabels = () => instance.get(`/labels`);
+export const getLabelById = (id) => instance.get(`${API_BASE_URL}/labels/${id}`);
+export const addLabel = (label) => instance.post(`${API_BASE_URL}/labels`, label);
+export const updateLabel = (label) => instance.put(`${API_BASE_URL}/labels`, label);
+export const deleteLabel = (id) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user.data.authorities.includes('ROLE_ADMIN')) {
+    return instance.delete(`${API_BASE_URL}/labels/${id}`);
+  } else {
+    toast.error('Sadece yöneticiler etiketleri silebilir.');
+    return Promise.reject('Only admins can delete labels');
+  }
 };
+export const getAllLabelsByTaskId = (id) => instance.get(`${API_BASE_URL}/labels/getAllLabelsByTaskId/${id}`);
 
-export const getLabels = () => axios.get(`${API_BASE_URL}/labels`);
-export const getLabelById = (id) => axios.get(`${API_BASE_URL}/labels/${id}`);
-export const addLabel = (label) => axios.post(`${API_BASE_URL}/labels`, label);
-export const updateLabel = (label) => axios.put(`${API_BASE_URL}/labels`, label);
-export const deleteLabel = (id) => axios.delete(`${API_BASE_URL}/labels/${id}`);
-export const getAllLabelsByTaskId = (id) => axios.get(`${API_BASE_URL}/labels/getAllLabelsByTaskId/${id}`);
-
-export const getAllTasksByLabelId = (labelId) => axios.get(`${API_BASE_URL}/tasks/labels/${labelId}`);
-export const getTasks = () => axios.get(`${API_BASE_URL}/tasks`);
-export const getTaskById = (id) => axios.get(`${API_BASE_URL}/tasks/${id}`);
-export const addTask = (task) => axios.post(`${API_BASE_URL}/tasks`, task);
-export const updateTask = (task) => axios.put(`${API_BASE_URL}/tasks`, task);
-export const deleteTask = (id) => axios.delete(`${API_BASE_URL}/tasks/${id}`);
-export const addLabelToTask = (taskId, labelId) => axios.post(`${API_BASE_URL}/tasks/${taskId}/labels/${labelId}`);
+export const getAllTasksByLabelId = (labelId) => instance.get(`${API_BASE_URL}/tasks/labels/${labelId}`);
+export const getTasks = () => instance.get(`${API_BASE_URL}/tasks`);
+export const getTaskById = (id) => instance.get(`${API_BASE_URL}/tasks/${id}`);
+export const addTask = (task) => instance.post(`${API_BASE_URL}/tasks`, task);
+export const updateTask = (task) => instance.put(`${API_BASE_URL}/tasks`, task);
+export const deleteTask = (id) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user.data.authorities.includes('ROLE_ADMIN')) {
+    return instance.delete(`${API_BASE_URL}/tasks/${id}`);
+  } else {
+    toast.error('Sadece yöneticiler görevleri silebilir.');
+    return Promise.reject('Only admins can delete tasks');
+  }
+};
+export const addLabelToTask = (taskId, labelId) => instance.post(`${API_BASE_URL}/tasks/${taskId}/labels/${labelId}`);
 
 export const registerUser = (user) => axios.post(`${API_BASE_URL}/register`, user);
-
-export const loginUser = (credentials) => {
-  return axios.post(`${API_BASE_URL}/login`, credentials)
-    .then(response => {
-      setBasicAuth(credentials.username, credentials.password);
-      return response;
-    });
-};
+export const loginUser = (credentials) => axios.post(`${API_BASE_URL}/login`, credentials);

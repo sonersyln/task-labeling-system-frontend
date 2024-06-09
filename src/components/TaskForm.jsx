@@ -7,21 +7,20 @@ const TaskForm = ({ onTaskAdded }) => {
   const [taskName, setTaskName] = useState('');
   const { user } = useAuth();
   const location = useLocation();
-  const labelId = location.pathname.split('/').pop(); // URL'deki son parametreyi al
+  const labelId = location.pathname.split('/').pop();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userFromStorage = window.localStorage.getItem('user');
     const parsedUser = JSON.parse(userFromStorage);
-    const username = parsedUser ? parsedUser.data : '';
+    const username = parsedUser ? parsedUser.data.username : '';
     
     if (!labelId) {
       console.error('Label ID is null');
       return;
     }
   
-    console.log(`Task Name: ${taskName}, Username: ${username}, Label ID: ${labelId}`);
-    await addTask({ name: taskName, username, labelIds: [labelId] }); // labelId'yi bir diziye çevir
+    await addTask({ name: taskName, username, labelIds: [labelId] });
     setTaskName('');
     if (onTaskAdded) onTaskAdded();
     window.location.reload();

@@ -26,7 +26,6 @@ const Register = () => {
       await usernameSchema.validate(username);
       await passwordSchema.validate(password);
       const response = await registerUser({ email, username, password });
-      console.log(response);
       toast.success('Kayıt başarılı');
       setTimeout(() => {
         navigate('/');

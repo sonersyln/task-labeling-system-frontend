@@ -28,7 +28,6 @@ const Login = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         const errorMessage = error.response.data.message || 'Giriş başarısız oldu. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.';
-        console.log(errorMessage);
         toast.error(errorMessage);
       } else {
         toast.error('Giriş başarısız oldu. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.');
