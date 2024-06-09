@@ -6,24 +6,28 @@ body {
   top: 0;
   left: 0;
 }
-#root{
-  margin-top:-0.5rem;
+#root {
+  margin-top: -0.5rem;
 }
-a{
+a {
   text-decoration: none;
-  
 }
-a,p,h1,h2,h3,h4{
+a,
+p,
+h1,
+h2,
+h3,
+h4 {
   color: #444;
 }
-a:hover{
+a:hover {
   text-decoration: none;
 }
-li{
+li {
   list-style: none;
 }
-.form-control{
-  border:none;
+.form-control {
+  border: none;
 }
 .card {
   background: #fefefe;
@@ -38,8 +42,8 @@ li{
   text-decoration: none;
   display: flex;
   width: 100%;
-  height: 100%;
   align-items: center;
+  padding-right: 8px;
 }
 .label-menu-link .card-title {
   width: 100%;
@@ -103,7 +107,7 @@ li{
 }
 .baseContainer {
   margin: 1rem 4rem auto;
-  padding-top: 5rem!important;
+  padding-top: 5rem !important;
 }
 .baseContainer .rows {
   display: flex;
@@ -111,32 +115,32 @@ li{
   justify-content: space-between;
   margin: 0rem 2rem auto;
 }
-.baseContainer .rows .label-container-card{
-    max-height: 650px;
-    overflow-y: scroll;
-    height: 120px;
-    min-height: 650px;
+.baseContainer .rows .label-container-card {
+  max-height: 650px;
+  overflow-y: scroll;
+  height: 120px;
+  min-height: 650px;
 }
 .taskContainer {
 }
 .taskContainer .titleContainer {
   margin-top: 2.25rem;
-  margin-bottom:0.25rem;
+  margin-bottom: 0.25rem;
 }
 .taskContainer .cardContainer {
   max-height: 650px;
-    height: 120px;
-    min-height: 650px;
+  height: 120px;
+  min-height: 650px;
 }
 .taskContainer .titleContainer .add-btn {
-display: flex;
-justify-content: center;
-align-items: center;
-   background: #1bc562;
-   color: #fefefe;
-   padding: 0.25rem .5rem;
-   font-size: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1bc562;
+  color: #fefefe;
+  padding: 0.25rem 0.5rem;
+  font-size: 20px;
+}
 .labelContainer {
   display: flex;
   flex-direction: row;
@@ -151,13 +155,11 @@ align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
 }
 .labelContainer .card p {
   display: none;
   word-break: break-word;
   white-space: nowrap;
-
 }
 .labelContainer .card:nth-child(1) {
   background: #1b57fc;
@@ -175,7 +177,6 @@ align-items: center;
   display: none;
   cursor: pointer !important;
   color: transparent;
-
 }
 
 .labelContainer .card:hover .hoverText {
@@ -184,12 +185,56 @@ align-items: center;
 }
 .card .contentContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  width: 100%;
+  padding: 3px 10px;
+}
+.card .contentContainer p {
+  width: 100%;
 }
 .card .contentContainer p ._IYz6Z {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   column-gap: 2rem;
+}
+
+.contentContainer ._IYz6Z ._4GdcU {
+  cursor: pointer !important;
+}
+.contentContainer ._IYz6Z ._-wzeg {
+  display: flex;
+  width: 100%;
+  cursor: pointer !important;
+  word-break: break-word;
+
+
+  overflow: hidden;
+}
+.contentContainer ._IYz6Z ._4GdcU:hover {
+  background-color: transparent !important;
+}
+.contentContainer ._IYz6Z {
+  width: 100%;
+  cursor: pointer;
+}
+.contentContainer ._IYz6Z ._NGZSv {
+  background-color: transparent !important;
+  color: #1b57fc !important;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+.contentContainer:hover ._IYz6Z ._NGZSv {
+  background-color: transparent !important;
+
+}
+.active ._IYz6Z ._NGZSv {
+  background-color: transparent !important;
+
+}
+._4GdcU{
+  overflow-y: unset;
+  white-space: wrap;
+}
+.delete-task-icon{
+  cursor: pointer;
 }

@@ -4,6 +4,7 @@ import { IoIosCloseCircle, IoIosMenu, IoIosLogIn } from "react-icons/io";
 import { NavDropdown } from "react-bootstrap";
 import "./navbar.css";
 import { useAuth } from '../../pages/Auth/AuthContext';
+import logo from "../../assets/images/logo.png";
 
 const NewNavbar = () => {
   const [navbar, setNavbar] = useState("navbar");
@@ -35,7 +36,10 @@ const NewNavbar = () => {
       <div className={header}>
         <div className="logoDiv">
           <Link to="/" className="link">
-            Rent2GO Yönetim Sistemi
+          <div className="logo-img">
+              <img src={logo} alt="logo" />
+            </div>
+
           </Link>
         </div>
         <div className={navbar}>

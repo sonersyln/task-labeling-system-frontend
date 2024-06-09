@@ -96,7 +96,7 @@ const handleDelete = async (id) => {
                       onSave={(value) => handleSave(task.id, value, task.labels.map(label => label.id))}
                     />
                   </p>
-                  <div className="card-icons text-danger" onClick={() => handleDelete(task.id)}>
+                  <div className="card-icons delete-task-icon text-danger" onClick={() => handleDelete(task.id)}>
                     <IoTrashOutline />
                   </div>
                 </div>

@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { registerUser } from "../../services/api";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Register.css";
+
+const schema = yup.object().shape({
+  email: yup.string().email('Invalid email format').required('Email is required'),
+  username: yup.string().required('Username is required'),
+  password: yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+});
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -12,11 +21,13 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      await schema.validate({ email, username, password });
       await registerUser({ email, username, password });
-      // Registration successful, handle redirection or state update
       navigate('/');
+      toast.success('Registration successful');
     } catch (error) {
       console.error("Registration failed", error);
+      toast.error('Registration failed');
     }
   };
 
