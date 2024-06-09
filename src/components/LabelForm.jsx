@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { addLabel } from '../services/api';
+import { toast } from 'react-toastify';
 
 const LabelForm = ({ onLabelAdded }) => {
   const [labelName, setLabelName] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await addLabel({ name: labelName });
-    setLabelName('');
-    if (onLabelAdded) onLabelAdded();
-    window.location.reload();
+    try {
+      await addLabel({ name: labelName });
+      setLabelName('');
+      if (onLabelAdded) onLabelAdded();
+      window.location.reload();
+    } catch (error) {
+      const errorMessage = error.response.data.message.name;
+      const turkishErrorMessage = 'Etiket eklerken hata oluştu: ' + errorMessage;
+      toast.error(turkishErrorMessage);
+    }
   };
 
   return (

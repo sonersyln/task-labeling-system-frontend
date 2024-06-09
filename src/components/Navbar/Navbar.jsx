@@ -9,7 +9,7 @@ import logo from "../../assets/images/logo.png";
 const NewNavbar = () => {
   const [navbar, setNavbar] = useState("navbar");
   const [header, setHeader] = useState("header addBg");
-  const { user, logout } = useAuth(); // Kullanıcı bilgilerini al
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const addBg = () => {

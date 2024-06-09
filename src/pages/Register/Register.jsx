@@ -33,7 +33,7 @@ const Register = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         const errorMessage = error.response.data.message || 'Kayıt başarısız';
-        toast.error(errorMessage);
+        toast.error('Kayıt başarısız: ' + errorMessage);
       } else {
         toast.error('Kayıt başarısız');
       }

@@ -20,7 +20,7 @@ const TaskDetails = () => {
 
         setTasks(getData.data.data);
       } catch (error) {
-        console.error("Error fetching labels:", error);
+        toast.error("Görevler listelenirken bir hata oluştu");
       }
     };
     setTasks(null);
@@ -33,19 +33,16 @@ const TaskDetails = () => {
       name: value.value,
       labelIds,
     };
-
+  
     try {
       await updateTask(updateTaskRequest);
       const getData = await getAllTasksByLabelId(params.id);
       setTasks(getData.data.data);
       toast.success("Görev başarıyla güncellendi!"); 
     } catch (error) {
-      console.error("Görev güncellenirken hata oluştu:", error);
-      if (error.response && error.response.data) {
-        toast.error(error.response.data.message || "Görev güncellenirken hata oluştu");
-      } else {
-        toast.error("Görev güncellenirken hata oluştu");
-      }
+      const errorMessage = error.response && error.response.data && error.response.data.message.name;
+      const turkishErrorMessage = `Görev güncellenirken hata oluştu: ${errorMessage}`;
+      toast.error(turkishErrorMessage || "Görev güncellenirken hata oluştu");
     }
   };
 

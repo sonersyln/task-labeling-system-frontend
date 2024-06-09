@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { addTask } from '../services/api';
 import { useAuth } from './../pages/Auth/AuthContext';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const TaskForm = ({ onTaskAdded }) => {
   const [taskName, setTaskName] = useState('');
@@ -16,14 +17,20 @@ const TaskForm = ({ onTaskAdded }) => {
     const username = parsedUser ? parsedUser.data.username : '';
     
     if (!labelId) {
-      console.error('Label ID is null');
+      toast.error('Etiket seçiniz!');
       return;
     }
   
-    await addTask({ name: taskName, username, labelIds: [labelId] });
-    setTaskName('');
-    if (onTaskAdded) onTaskAdded();
-    window.location.reload();
+    try {
+      await addTask({ name: taskName, username, labelIds: [labelId] });
+      setTaskName('');
+      if (onTaskAdded) onTaskAdded();
+      window.location.reload();
+    } catch (error) {
+      const errorMessage = error.response.data.message.name;
+      const turkishErrorMessage = `Görev eklenirken hata oluştu: ${errorMessage}`;
+      toast.error(turkishErrorMessage);
+    }
   };
 
   return (

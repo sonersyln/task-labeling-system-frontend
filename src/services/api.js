@@ -9,30 +9,32 @@ const instance = axios.create({
   baseURL: `${API_BASE_URL}`
 });
 
-// Request interceptor
 instance.interceptors.request.use(
   config => {
-    // Check if user exists in localStorage
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       console.error('User not found in localStorage.');
-      toast.error('Lütfen giriş yapınız.');
+      if (!toast.isActive('loginToast')) {
+        toast.error('Lütfen giriş yapınız.', { toastId: 'loginToast' });
+      }
       return Promise.reject('User not found in localStorage');
     }
 
-    // Check if user has authorities field
     if (!user.data.authorities) {
       console.error('User does not have authorities field.');
-      toast.error('Lütfen giriş yapınız.');
+      if (!toast.isActive('loginToast')) {
+        toast.error('Lütfen giriş yapınız.', { toastId: 'loginToast' });
+      }
       return Promise.reject('User does not have authorities field');
     }
 
-    // Check if user has necessary roles
     if (user.data.authorities.includes('ROLE_ADMIN') || user.data.authorities.includes('ROLE_USER')) {
       return config;
     } else {
       console.error('User does not have necessary permissions.');
-      toast.error('Lütfen giriş yapınız.');
+      if (!toast.isActive('loginToast')) {
+        toast.error('Lütfen giriş yapınız.', { toastId: 'loginToast' });
+      }
       return Promise.reject('User does not have necessary permissions');
     }
   },

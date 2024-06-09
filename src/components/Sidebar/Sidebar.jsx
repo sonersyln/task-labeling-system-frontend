@@ -7,6 +7,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { EditText } from "react-edit-text";
 import "react-edit-text/dist/index.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const [Labels, setLabels] = useState([]);
@@ -18,7 +19,7 @@ const Sidebar = () => {
         setLabels(getData.data.data);
         console.log(getData.data.data);
       } catch (error) {
-        console.error("Error fetching labels:", error);
+        console.error("Etiketler alınırken hata oluştu:", error);
       }
     };
 
@@ -30,7 +31,7 @@ const Sidebar = () => {
       await deleteLabel(id);
       setLabels(Labels.filter((label) => label.id !== id));
     } catch (error) {
-      console.error("Error deleting label:", error);
+      console.error("Etiket silinirken hata oluştu:", error);
     }
   };
 
@@ -38,21 +39,19 @@ const Sidebar = () => {
     const newLabelValue = newValue.value;
     if (label.name !== newLabelValue) {
       const updatedLabel = { ...label, name: newLabelValue };
-      
+
       await updateLabelData(updatedLabel);
     }
   };
-  
+
   const updateLabelData = async (updatedLabel) => {
     try {
       await updateLabel(updatedLabel);
     } catch (error) {
-      console.error("Error updating label:", error);
+      const errorMessage = error.response.data.message.name;
+      toast.error(`Etiket güncellenirken hata oluştu: ${errorMessage}`);
     }
   };
-  
-
-
 
   return (
     <div className="col-4 p-2">
