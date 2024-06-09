@@ -35,7 +35,7 @@ const NewNavbar = () => {
       <div className={header}>
         <div className="logoDiv">
           <Link to="/" className="link">
-            Brand
+            Rent2GO Yönetim Sistemi
           </Link>
         </div>
         <div className={navbar}>

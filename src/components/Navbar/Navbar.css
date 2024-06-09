@@ -71,11 +71,22 @@
   }
   
   .dropdown-menu {
-    background: var(--greyColor);
+    background: #134361 !important;
     border: none;
     padding: 1rem 2rem;
-    margin: 3rem -1.5rem;
-    width: 190px;
+    
+  }
+  .dropdown-menu a{
+    color: white !important;
+    border: none;
+    padding: 1rem 2rem;
+    
+  }
+  .dropdown-menu a:hover{
+    background: transparent !important;
+    border: none;
+    padding: 1rem 2rem;
+    
   }
   .dropdown-menu .text {
     margin: 0.5rem 0.25rem;
@@ -213,10 +224,14 @@
     }
     .header .signUp .text {
       padding: 6px;
-      color: var(--primaryColor);
+      color: #fefefe;
     }
     .header .signUp .text:hover {
-      color: var(--pureWhiteColor);
+      color: #134361;
+      
+      background:  #fefefe;
+      
+
     }
     .header .signUp .toggleNavbarIcon {
       font-size: 30px;
