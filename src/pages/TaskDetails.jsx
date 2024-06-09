@@ -20,7 +20,7 @@ const TaskDetails = () => {
 
         setTasks(getData.data.data);
       } catch (error) {
-        toast.error("Görevler listelenirken bir hata oluştu");
+        console.log("Görevler getirilirken hata oluştu:", error);
       }
     };
     setTasks(null);
