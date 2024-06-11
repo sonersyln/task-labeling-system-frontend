@@ -9,18 +9,22 @@ const LabelForm = () => {
   
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await dispatch(createLabel({ name: labelName }));
+  event.preventDefault();
+  try {
+    const actionResult = await dispatch(createLabel({ name: labelName }));
+    if (createLabel.fulfilled.match(actionResult)) {
       dispatch(fetchLabels());
       setLabelName('');
       toast.success('Etiket başarıyla eklendi!');
-    } catch (error) {
-      const errorMessage = error.response.data.message.name;
+    } else if (createLabel.rejected.match(actionResult)) {
+      const errorMessage = actionResult.payload.message.name;
       const turkishErrorMessage = 'Etiket eklerken hata oluştu: ' + errorMessage;
       toast.error(turkishErrorMessage);
     }
-  };
+  } catch (error) {
+    toast.error('Etiket eklerken bir hata oluştu.');
+  }
+};
 
   return (
     <form onSubmit={handleSubmit}>
