@@ -55,8 +55,10 @@ const TaskDetails = () => {
 
   const handleDelete = async (id) => {
     try {
-      await dispatch(removeTask(id));
-      toast.success("Görev başarıyla silindi!");
+      const response = await dispatch(removeTask(id));
+      if (response.config.method === 'delete') {
+        toast.success("Görev başarıyla silindi!");
+      }
     } catch (error) {
       console.error("Görev silinirken hata oluştu:", error);
       if (error.response && error.response.data) {
