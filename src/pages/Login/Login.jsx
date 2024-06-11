@@ -21,8 +21,9 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const userData = await loginUser(formData);
-      login(userData);
+      const response = await loginUser(formData);
+      const token = response.data;
+      login(token);
       toast.success('Giriş başarılı!');
       navigate('/');
     } catch (error) {
@@ -74,7 +75,7 @@ const Login = () => {
         Hoş geldiniz! Lütfen giriş yapın.
       </p>
       <p>
-      Üye değil misin? <a href="#" onClick={handleRegisterClick}>Kayıt olmak için tıkla!</a>
+        Üye değil misin? <a href="#" onClick={handleRegisterClick}>Kayıt olmak için tıkla!</a>
       </p>
     </div>
   );

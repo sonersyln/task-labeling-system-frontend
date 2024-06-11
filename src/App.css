@@ -181,7 +181,6 @@ li {
 
 .labelContainer .card:hover .hoverText {
   display: block;
-  /*transform: rotateX(2rem 2rem);*/
 }
 .card .contentContainer {
   display: flex;

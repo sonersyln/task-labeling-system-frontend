@@ -9,7 +9,7 @@ import logo from "../../assets/images/logo.png";
 const NewNavbar = () => {
   const [navbar, setNavbar] = useState("navbar");
   const [header, setHeader] = useState("header addBg");
-  const { user, logout } = useAuth();
+  const { token, logout } = useAuth();
 
   useEffect(() => {
     const addBg = () => {
@@ -36,10 +36,9 @@ const NewNavbar = () => {
       <div className={header}>
         <div className="logoDiv">
           <Link to="/" className="link">
-          <div className="logo-img">
+            <div className="logo-img">
               <img src={logo} alt="logo" />
             </div>
-
           </Link>
         </div>
         <div className={navbar}>
@@ -53,10 +52,9 @@ const NewNavbar = () => {
           <Link to="/" className="link">
             Anasayfa
           </Link>
-          {user ? (
+          {token ? (
             <>
               <NavDropdown className="textAction text" title="Profil" id="basic-nav-dropdown">
-                
                 <NavDropdown.Item onClick={logout} className="lang-item">
                   Çıkış Yap
                 </NavDropdown.Item>

@@ -53,7 +53,7 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="authh-container">
       <h2>Kayıt Ol</h2>
       <form onSubmit={handleRegister}>
         <div className="form-group">
