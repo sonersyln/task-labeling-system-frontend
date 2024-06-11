@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
-import { addTask } from '../services/api';
+import { useDispatch } from 'react-redux';
+import { createTask } from '../store/taskSlice';
 import { useAuth } from './../pages/Auth/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 
-const TaskForm = ({ onTaskAdded }) => {
+const TaskForm = () => {
   const [taskName, setTaskName] = useState('');
   const { user } = useAuth();
   const location = useLocation();
+  const dispatch = useDispatch();
   const labelId = location.pathname.split('/').pop();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userFromStorage = window.localStorage.getItem('user');
-    const parsedUser = JSON.parse(userFromStorage);
-    const username = parsedUser ? parsedUser.data.username : '';
-    
+    const tokenFromStorage = window.localStorage.getItem('token');
+    const decodedToken = jwtDecode(tokenFromStorage);
+    const username = decodedToken ? decodedToken.sub : '';
+
     if (!labelId) {
       toast.error('Etiket seçiniz!');
       return;
     }
-  
+
     try {
-      await addTask({ name: taskName, username, labelIds: [labelId] });
+      await dispatch(createTask({ name: taskName, username, labelIds: [labelId] }));
       setTaskName('');
-      if (onTaskAdded) onTaskAdded();
-      window.location.reload();
+      toast.success('Görev başarıyla eklendi!');
     } catch (error) {
       const errorMessage = error.response.data.message.name;
       const turkishErrorMessage = `Görev eklenirken hata oluştu: ${errorMessage}`;
@@ -43,7 +45,7 @@ const TaskForm = ({ onTaskAdded }) => {
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
           required
-          placeholder='Görev eklemek için Entera basınız...'
+          placeholder="Görev eklemek için Enter'a basınız..."
         />
       </div>
     </form>

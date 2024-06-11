@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { addLabel } from '../services/api';
+import { useDispatch } from 'react-redux';
+import { createLabel, fetchLabels } from '../store/labelSlice';
 import { toast } from 'react-toastify';
 
-const LabelForm = ({ onLabelAdded }) => {
+const LabelForm = () => {
   const [labelName, setLabelName] = useState('');
+  const dispatch = useDispatch();
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addLabel({ name: labelName });
+      await dispatch(createLabel({ name: labelName }));
+      dispatch(fetchLabels());
       setLabelName('');
-      if (onLabelAdded) onLabelAdded();
-      window.location.reload();
+      toast.success('Etiket başarıyla eklendi!');
     } catch (error) {
       const errorMessage = error.response.data.message.name;
       const turkishErrorMessage = 'Etiket eklerken hata oluştu: ' + errorMessage;
@@ -30,7 +33,7 @@ const LabelForm = ({ onLabelAdded }) => {
           value={labelName}
           onChange={(e) => setLabelName(e.target.value)}
           required
-          placeholder='Etiket eklemek için Entera basınız...'
+          placeholder="Etiket eklemek için Enter'a basınız..."
         />
       </div>
     </form>

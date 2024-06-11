@@ -1,46 +1,53 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTasksByLabel,
+  createTask,
+  removeTask,
+  editTask,
+} from "../store/taskSlice";
 import { EditText } from "react-edit-text";
 import "react-edit-text/dist/index.css";
 import { IoTrashOutline } from "react-icons/io5";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { deleteTask, getAllTasksByLabelId, updateTask } from "../services/api";
-import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const TaskDetails = () => {
+  const { tasks } = useSelector((state) => state);
+  const state = useSelector((state) => state);
+  console.log("state logu" + tasks);
+  const dispatch = useDispatch();
   const params = useParams();
-  const [Tasks, setTasks] = useState();
+  const labelId = params.id;
 
   useEffect(() => {
-    const fetchLabels = async () => {
-      setTasks(null);
-      try {
-        const getData = await getAllTasksByLabelId(params.id);
+    if (!labelId) return;
 
-        setTasks(getData.data.data);
-      } catch (error) {
-        console.log("Görevler getirilirken hata oluştu:", error);
-      }
-    };
-    setTasks(null);
-    fetchLabels();
-  }, [params.id]);
+    dispatch(fetchTasksByLabel(labelId));
+  }, [dispatch, labelId]);
 
   const handleSave = async (id, value, labelIds) => {
+    const task = tasks.find((task) => task.id === id);
+    const taskLabelIds =
+      task && task.labels ? task.labels.map((label) => label.id) : [];
+
     const updateTaskRequest = {
       id,
       name: value.value,
-      labelIds,
+      labelIds: labelIds || taskLabelIds,
     };
-  
+
     try {
-      await updateTask(updateTaskRequest);
-      const getData = await getAllTasksByLabelId(params.id);
-      setTasks(getData.data.data);
-      toast.success("Görev başarıyla güncellendi!"); 
+      await dispatch(editTask(updateTaskRequest));
+      toast.success("Görev başarıyla güncellendi!");
     } catch (error) {
-      const errorMessage = error.response && error.response.data && error.response.data.message.name;
+      const errorMessage =
+        error.response &&
+        error.response.data &&
+        error.response.data.message &&
+        error.response.data.message.name;
       const turkishErrorMessage = `Görev güncellenirken hata oluştu: ${errorMessage}`;
       toast.error(turkishErrorMessage || "Görev güncellenirken hata oluştu");
     }
@@ -48,27 +55,26 @@ const TaskDetails = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteTask(id);
-      const getData = await getAllTasksByLabelId(params.id);
-      setTasks(getData.data.data);
-      toast.success("Görev başarıyla silindi!"); 
+      await dispatch(removeTask(id));
+      toast.success("Görev başarıyla silindi!");
     } catch (error) {
       console.error("Görev silinirken hata oluştu:", error);
       if (error.response && error.response.data) {
-        toast.error(error.response.data.message );
-      } 
+        toast.error(error.response.data.message);
+      }
     }
   };
 
   return (
     <div className="detailTaskContainer">
       <div className="row">
-        {Tasks &&
-          Tasks.map((task, taskIndex) => (
+        {tasks &&
+          tasks.map((task, taskIndex) => (
             <div className="col-4" key={task.id}>
               <div className="card">
                 <div className="labelContainer">
-                  {task.labels &&
+                  {task &&
+                    task.labels &&
                     task.labels.map((label, labelIndex) => (
                       <div
                         className="card"
@@ -97,7 +103,7 @@ const TaskDetails = () => {
                       onSave={(value) =>
                         handleSave(
                           task.id,
-                          value,
+                          value.value, 
                           task.labels.map((label) => label.id)
                         )
                       }
