@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTask } from '../store/taskSlice';
+import { createTask, fetchTasksByLabel } from '../store/taskSlice';
 import { useAuth } from './../pages/Auth/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -18,14 +18,15 @@ const TaskForm = () => {
     const tokenFromStorage = window.localStorage.getItem('token');
     const decodedToken = jwtDecode(tokenFromStorage);
     const username = decodedToken ? decodedToken.sub : '';
-
+  
     if (!labelId) {
       toast.error('Etiket seçiniz!');
       return;
     }
-
+  
     try {
       await dispatch(createTask({ name: taskName, username, labelIds: [labelId] }));
+      dispatch(fetchTasksByLabel(labelId));
       setTaskName('');
       toast.success('Görev başarıyla eklendi!');
     } catch (error) {
