@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Etiketleme Sistemi (Task Labeling System)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Proje Görüntüsü](https://sonerseylan.com.tr/report/task-label.png)
 
-## Available Scripts
+## Proje Amacı
 
-In the project directory, you can run:
+Bu projede kullanıcıların görevlerine etiketler ekleyebilmesi, bu etiketlere göre görevleri filtreleyebilmesi amaçlanmıştır. Kullanıcılar, görevlere bir veya birden fazla etiket atayabilir ve bu etiketlere göre görevleri görüntüleyebilirler.
 
-### `npm start`
+## Gereksinimler
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Kimlik Doğrulama:** Kullanıcıların sisteme giriş yapabilmesi için kimlik doğrulama gereklidir.
+- **Etiket Ekleme:** Kullanıcılar yeni etiketler oluşturabilmelidir.
+- **Etiket Atama:** Kullanıcılar görevlerine bir veya birden fazla etiket atayabilirler.
+- **Görev Filtreleme:** Kullanıcılar etiketlere göre görevleri filtreleyebilmelidir.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## İşlevler
 
-### `npm test`
+### 1. Etiket Ekleme
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Kullanıcılar, yeni bir etiket oluşturabilirler. Etiket adı girilir ve "Etiket Ekle" butonuna tıklanır.
 
-### `npm run build`
+### 2. Etiket Atama
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Kullanıcılar bir göreve bir veya daha fazla etiket atayabilirler. Görevin detay sayfasında etiketler listelenir ve yeni etiketler eklenebilir.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Görevleri Etiketlere Göre Filtreleme
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Kullanıcılar etiketlere göre görevleri filtreleyebilirler. Ana görev listesi sayfasında etiketler listelenir ve kullanıcılar bir etiketi seçerek ilgili görevleri görüntüleyebilir.
 
-### `npm run eject`
+### 4. Mail sistemi
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Hangi kullanıcı hangi etiketleri eklediyse yönetici mailine otomatik olarak e-posta gönderilir.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Kullanıcı Arayüzü
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Etiket Ekleme Formu
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Kullanıcı, yeni bir etiket oluşturma sayfasına gider.
+- Etiket adı girilir ve "Etiket Ekle" butonuna tıklanır.
 
-## Learn More
+### Göreve Etiket Atama Formu
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Kullanıcı, görevin detay sayfasına gider.
+- Etiketler listelenir ve yeni etiketler eklenebilir.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Görevleri Etiketlere Göre Filtreleme
 
-### Code Splitting
+- Kullanıcı, ana görev listesi sayfasına gider.
+- Etiketler listelenir ve kullanıcılar bir etiketi seçerek ilgili görevleri görüntüleyebilir.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Kullanım
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Kullanıcı Girişi:** Sisteme giriş yaparak görevlerinizi ve etiketlerinizi yönetebilirsiniz.
+- **Etiket Ekleme:** Yeni etiketler ekleyebilirsiniz.
+- **Etiket Atama:** Görevlerinize etiketler atayabilirsiniz.
+- **Mail Kontrolü:** Yeni bir etiket eklendiğinde otomatik bilgi mesajı alırsınız.
+- **Görev Filtreleme:** Etiketlere göre görevlerinizi filtreleyebilirsiniz.
